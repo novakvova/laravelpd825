@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Category;
 
 class CategoryController extends Controller
 {
@@ -34,7 +35,18 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'name'=>'required',
+            'base64Image'=>'required'
+        ]);
+
+        $contact = new Category([
+            'name' => $request->get('name'),
+            'image' => "",
+            'description' => $request->get('description')
+        ]);
+        $contact->save();
+        return redirect('/categories')->with('success', 'Категорію успішно збережено!');
     }
 
     /**
