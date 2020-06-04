@@ -16,7 +16,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = \App\Category::all();
+
+        return view('categories.index', ['allCategories' => $categories]);
     }
 
     /**
@@ -46,7 +48,6 @@ class CategoryController extends Controller
         $path = public_path('images/').$img_url;
 
         my_image_resize(200,200, $path, request()->base64Image);
-
 
         $contact = new Category([
             'name' => $request->get('name'),
