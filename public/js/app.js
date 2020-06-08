@@ -40870,6 +40870,8 @@ module.exports = function(module) {
 
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./stackPhoto */ "./resources/js/stackPhoto.js");
+
 /***/ }),
 
 /***/ "./resources/js/bootstrap.js":
@@ -40916,6 +40918,73 @@ window.FroalaEditor = __webpack_require__(/*! froala-editor */ "./node_modules/f
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+/***/ }),
+
+/***/ "./resources/js/stackPhoto.js":
+/*!************************************!*\
+  !*** ./resources/js/stackPhoto.js ***!
+  \************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+(function ($) {
+  $(document).ready(function () {
+    initCropper(); //загрузка фото на клік
+
+    uploadImage();
+    var cropper; //загрузка фото на клік
+
+    function uploadImage() {
+      var button = $('.images .pic');
+      var dialogCropper = $("#cropperModal");
+      var images = $('.images');
+      button.on('click', function () {
+        var uploader = $('<input type="file" accept="image/*" />');
+        uploader.click();
+        uploader.on('change', function () {
+          var reader = new FileReader();
+
+          reader.onload = function (event) {
+            dialogCropper.modal('show');
+            cropper.replace(event.target.result);
+            uploader.remove(); //
+          };
+
+          reader.readAsDataURL(uploader[0].files[0]);
+        });
+      });
+      images.on('click', '.img', function () {
+        $(this).remove();
+      }); //обрізка малюнка
+
+      $("#cropImg").on("click", function (e) {
+        e.preventDefault();
+        var imgContent = cropper.getCroppedCanvas().toDataURL();
+        images.prepend('<div class="img" style="background-image: url(' + imgContent + ');" rel="' + imgContent + '"><span>remove</span></div>');
+        dialogCropper.modal('hide');
+      });
+    }
+
+    function initCropper() {
+      //запуск кропера
+      var imageCropper = document.getElementById('imageCropper');
+      cropper = new Cropper(imageCropper, {
+        aspectRatio: 224 / 168,
+        viewMode: 1,
+        autoCropArea: 0.5,
+        crop: function crop(event) {// console.log(event.detail.x);
+          // console.log(event.detail.y);
+          // console.log(event.detail.width);
+          // console.log(event.detail.height);
+          // console.log(event.detail.rotate);
+          // console.log(event.detail.scaleX);
+          // console.log(event.detail.scaleY);
+        }
+      });
+    }
+  });
+})(jQuery);
 
 /***/ }),
 

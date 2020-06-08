@@ -41,7 +41,7 @@
     </div>
 
     <!-- Modal -->
-    @include('_croper-modal');
+    @include('view._croper-modal');
     @endsection
 
 @section('scripts')

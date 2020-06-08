@@ -9,7 +9,7 @@
             </div>
             <div class="modal-body">
                 <div>
-                    <img id="imageCropper" src="{{ asset('images/200_default.png') }}" height="400">
+                    <img id="imageCropper" src="{{ asset('/images/200_default.png') }}" height="400">
                 </div>
             </div>
             <div class="modal-footer">
