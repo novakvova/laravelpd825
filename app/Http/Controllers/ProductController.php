@@ -85,4 +85,10 @@ class ProductController extends Controller
     {
         //
     }
+
+    public function upload(Request $request)
+    {
+        $data = $request->json()->all();
+        //
+    }
 }

@@ -26,3 +26,5 @@ Route::resource('contacts', 'ContactController');
 Route::resource('categories', 'CategoryController');
 
 Route::resource('products', 'ProductController');
+
+

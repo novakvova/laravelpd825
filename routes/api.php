@@ -19,3 +19,5 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::apiResource('contacts', 'ContactController');
+
+Route::post('products/upload', 'ProductController@upload');
