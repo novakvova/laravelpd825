@@ -25,7 +25,7 @@
 
                     <div class="form-group">
                         <label for="email">Опис:</label>
-                        <textarea class="form-control" name="description" id ="edit" rows="10" cols="45" ></textarea>
+                        <textarea class="form-control" name="description" id ="description" rows="10" cols="45" ></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Add contact</button>
@@ -41,8 +41,31 @@
 @section('scripts')
 
 
-    <script>
+    <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+    <script src="{{ asset('node_modules/tinymce-i18n/langs/uk.js') }}"></script>
 
+    <script>
+        tinymce.init({
+            selector: 'textarea#description',
+            language: "uk",
+            theme: "silver",
+            menubar: true,
+            skin: 'oxide-dark',
+            content_css: 'dark',
+            plugins: [
+                "advlist autolink lists link image charmap print preview anchor",
+                "searchreplace visualblocks code fullscreen",
+                "insertdatetime media table paste code help wordcount",
+            ],
+            toolbar:
+                "undo redo | formatselect | bold italic backcolor | \
+     alignleft aligncenter alignright alignjustify | \
+     bullist numlist outdent indent | removeformat | help",
+        });
+        // $(function () {
+        //     new FroalaEditor('#edit');
+        // });
     </script>
+
 
 @endsection
