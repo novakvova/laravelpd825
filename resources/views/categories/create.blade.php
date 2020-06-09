@@ -12,7 +12,7 @@
                                 <li>{{ $error }}</li>
                             @endforeach
                         </ul>
-                    </div><br />
+                    </div><br/>
                 @endif
                 <form id="create" method="post" action="{{ route('categories.store') }}">
                     @csrf
@@ -23,15 +23,15 @@
 
                     <div class="form-group">
                         <img class="chose-image" src="{{ asset('images/200_default.png') }}"
-                                id="chooseImage" alt="Обрати фото">
+                             id="chooseImage" alt="Обрати фото">
                         <input type="hidden" name="base64Image" id="base64Image">
 
-                        <input type="file" id="selectImage" class="d-none">
+
                     </div>
 
                     <div class="form-group">
                         <label for="email">Опис:</label>
-                        <textarea class="form-control" name="description" id ="edit" rows="10" cols="45" ></textarea>
+                        <textarea class="form-control" name="description" id="description" rows="10" cols="45"></textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Add contact</button>
@@ -42,7 +42,7 @@
 
     <!-- Modal -->
     @include('view._croper-modal');
-    @endsection
+@endsection
 
 @section('scripts')
     <script>
@@ -61,28 +61,28 @@
 
             //клікнули по фото і клікаємо по скритому інпуту файл
             $chooseImage.on("click", function () {
-                $selectImage.click();
-            });
+                let uploader = $('<input type="file" accept="image/*" />');
+                uploader.click()
+                uploader.on('change', function () {
+                    if (this.files && this.files.length) {
+                        let file = this.files[0];
+                        var reader = new FileReader();
+                        reader.onload = function (e) {
+                            dialogCropper.modal('show');
+                            cropper.replace(e.target.result);
 
-            //коли обрали файл
-            $selectImage.on("change", function() {
-                if (this.files && this.files.length) {
-                    let file = this.files[0];
-                    var reader = new FileReader();
-                    reader.onload = function(e) {
-                        dialogCropper.modal('show');
-                        cropper.replace(e.target.result);
+                        }
+                        reader.readAsDataURL(file);
 
                     }
-                    reader.readAsDataURL(file);
 
-                }
+                });
             });
 
             //запуск кропера
             const imageCropper = document.getElementById('imageCropper');
             const cropper = new Cropper(imageCropper, {
-                aspectRatio: 1/1,
+                aspectRatio: 1 / 1,
                 viewMode: 1,
                 autoCropArea: 0.5,
                 crop(event) {
@@ -97,7 +97,7 @@
             });
 
             //поворот малюнка
-            $("#img-rotation").on("click",function (e) {
+            $("#img-rotation").on("click", function (e) {
                 e.preventDefault();
                 cropper.rotate(45);
             });
@@ -116,22 +116,30 @@
         })
     </script>
 
+    //запускаємо фороалу едітор
+
+    <script src="{{ asset('node_modules/tinymce/tinymce.js') }}"></script>
+    <script src="{{ asset('node_modules/tinymce-i18n/langs/uk.js') }}"></script>
+
     <script>
-        //запускаємо фороалу едітор
         $(function () {
-            const editorInstance = new FroalaEditor('#edit', {
-                enter: FroalaEditor.ENTER_P,
-                placeholderText: null,
-                events: {
-                    initialized: function () {
-                        const editor = this;
-                        this.el.closest('form').addEventListener('submit', function (e) {
-                            // cosnole.log("--------", editor);
-                            // e.preventDefault();
-                        })
-                    }
-                }
-            })
+            tinymce.init({
+                selector: 'textarea#description',
+                language: "uk",
+                theme: "silver",
+                menubar: true,
+                skin: 'oxide-dark',
+                content_css: 'dark',
+                plugins: [
+                    "advlist autolink lists link image charmap print preview anchor",
+                    "searchreplace visualblocks code fullscreen",
+                    "insertdatetime media table paste code help wordcount",
+                ],
+                toolbar:
+                    "undo redo | formatselect | bold italic backcolor | \
+         alignleft aligncenter alignright alignjustify | \
+         bullist numlist outdent indent | removeformat | help",
+            });
         });
     </script>
 @endsection

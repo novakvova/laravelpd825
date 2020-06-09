@@ -27,4 +27,6 @@ Route::resource('categories', 'CategoryController');
 
 Route::resource('products', 'ProductController');
 
+Route::post('products/upload', 'ProductController@upload');
+
 
