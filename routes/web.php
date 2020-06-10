@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ProductController@home');
 
 Auth::routes();
 
@@ -25,7 +23,7 @@ Route::resource('contacts', 'ContactController');
 
 Route::resource('categories', 'CategoryController');
 
-Route::resource('products', 'ProductController');
+Route::resource('products', 'ProductController')->middleware('auth');
 
 Route::post('products/upload', 'ProductController@upload');
 

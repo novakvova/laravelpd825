@@ -20,8 +20,20 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        //$product = Product::find(1);
+        //$listImages = $product->productImages;
 
         return view('products.index', compact('products'));
+    }
+
+
+    public function home()
+    {
+        $products = Product::all();
+        //$product = Product::find(1);
+        //$listImages = $product->productImages;
+
+        return view('home', compact('products'));
     }
 
     /**
@@ -75,6 +87,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
+        $product = Product::find( $id);
+        return view('products.show',  ['product' => $product]);
         //
     }
 
@@ -116,8 +130,12 @@ class ProductController extends Controller
     {
         $base64_image=$request->get("imageBase64");
         $img_url = Str::uuid().'.jpg';
-        $path = public_path('images/').$img_url;
+        $path = public_path('images/105_').$img_url;
+        my_image_resize(105,80, $path, $base64_image);
+        $path = public_path('images/420_').$img_url;
         my_image_resize(420,320, $path, $base64_image);
+        $path = public_path('images/840_').$img_url;
+        my_image_resize(840,640, $path, $base64_image);
 
         $productImage = new ProductImage([
             'name' => $img_url,
@@ -125,7 +143,7 @@ class ProductController extends Controller
         ]);
         $productImage->save();
 
-        return response()->json(['id'=> $productImage->id, 'url'=>'/images/'.$img_url]);
+        return response()->json(['id'=> $productImage->id, 'url'=>'/images/420_'.$img_url]);
     }
 }
 
