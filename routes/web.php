@@ -23,8 +23,10 @@ Route::resource('contacts', 'ContactController');
 
 Route::resource('categories', 'CategoryController');
 
-Route::resource('products', 'ProductController')->middleware('auth');
+Route::resource('products', 'ProductController');//->middleware('auth');
 
 Route::post('products/upload', 'ProductController@upload');
+
+Route::post('products/removeImage/{id}', 'ProductController@removeImage');
 
 

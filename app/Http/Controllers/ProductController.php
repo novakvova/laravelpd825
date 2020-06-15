@@ -19,7 +19,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::all();
+        $products = Product::paginate(1);
         //$product = Product::find(1);
         //$listImages = $product->productImages;
 
@@ -100,7 +100,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $product = Product::find($id);
+        return view('products.edit',  ['product' => $product]);
     }
 
     /**
@@ -112,7 +113,21 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = \App\Product::find($id);
+        $product->name = $request->get('name');
+        $product->description = $request->get('description');
+        $product->price = $request->get('price');
+        $product->save();
+
+        $listImages=$request-> get("productImages");
+        if($listImages!=null) {
+            foreach ($listImages as $id) {
+                $pi = ProductImage::find($id);
+                $pi->product_id = $product->id;
+                $pi->save();
+            }
+        }
+        return redirect('/products')->with('success', 'Продукт успішно змінено!');
     }
 
     /**
@@ -123,7 +138,16 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect('/products')->with('success', 'Продукт успішно Видалено!');
+    }
+
+    public function removeImage($id)
+    {
+        $productImage = ProductImage::find($id);
+        $productImage->delete();
+        return ("Ok");
     }
 
     public function upload(Request $request)

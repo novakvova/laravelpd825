@@ -56,6 +56,9 @@
                 @endforeach
                 </tbody>
             </table>
-            <div>
+            <div style="display: flex; justify-content: center; margin-top: 25px">
+                {!! $products->links() !!}
             </div>
+        <div>
+    </div>
 @endsection
