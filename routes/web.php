@@ -28,9 +28,13 @@ Route::resource('products', 'ProductController');//->middleware('auth');
 Route::post('products/upload', 'ProductController@upload');
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
-Route::get('/redirect', 'Auth\LoginController@redirectToProvider');
+Route::get('/redirect-google', 'Auth\LoginController@redirectToProviderGoogle');
+Route::get('/redirect-facebook', 'Auth\LoginController@redirectToProviderFacebook');
+Route::get('/redirect-twitter', 'Auth\LoginController@redirectToProviderTwitter');
+//Redirect URI`s :
 Route::get('/google-auth', 'Auth\LoginController@handleProviderCallback');
-
+Route::get('/facebook-auth', 'Auth\LoginController@handleProviderCallbackFacebook');
+Route::get('/twitter-auth', 'Auth\LoginController@handleProviderCallbackTwitter');
 
 Auth::routes();
 
