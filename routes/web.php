@@ -28,5 +28,10 @@ Route::resource('products', 'ProductController');//->middleware('auth');
 Route::post('products/upload', 'ProductController@upload');
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
+Route::get('/redirect', 'Auth\LoginController@redirectToProvider');
+Route::get('/google-auth', 'Auth\LoginController@handleProviderCallback');
 
 
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
