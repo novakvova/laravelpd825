@@ -31,6 +31,8 @@ Route::post('products/removeImage/{id}', 'ProductController@removeImage');
 Route::get('/redirect-google', 'Auth\LoginController@redirectToProviderGoogle');
 Route::get('/redirect-facebook', 'Auth\LoginController@redirectToProviderFacebook');
 Route::get('/redirect-twitter', 'Auth\LoginController@redirectToProviderTwitter');
+Route::get('/redirect-linkedin', 'Auth\LoginController@redirectToProviderLinkedin');
+
 //Redirect URI`s :
 Route::get('/google-auth', 'Auth\LoginController@handleProviderCallback');
 Route::get('/facebook-auth', 'Auth\LoginController@handleProviderCallbackFacebook');

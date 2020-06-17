@@ -38,6 +38,10 @@ class LoginController extends Controller
     {
         return Socialite::driver('facebook')->redirect();
     }
+    public function redirectToProviderLinkedin()
+    {
+        return Socialite::driver('linkedIn')->redirect();
+    }
     /**
      * Obtain the user information from Google.
      *
@@ -99,6 +103,7 @@ class LoginController extends Controller
     }
     public function handleProviderCallbackTwitter()
     {
+
         try {
             $user = Socialite::driver('twitter')->user();
         } catch (\Exception $e) {
@@ -109,7 +114,7 @@ class LoginController extends Controller
 //            return redirect()->to('/');
 //        }
         // check if they're an existing user
-        $existingUser = User::where('email', $user->email)->first();
+        $existingUser = User::where('email', $user->name)->first();
         if($existingUser){
             // log them in
             auth()->login($existingUser, true);
@@ -117,7 +122,7 @@ class LoginController extends Controller
             // create a new user
             $newUser                  = new User;
             $newUser->name            = $user->name;
-            $newUser->email           = $user->email;
+            $newUser->email           = $user->name;
             $newUser->additional_id   = $user->id;
             $newUser->save();
             auth()->login($newUser, true);
