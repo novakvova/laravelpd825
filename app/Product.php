@@ -20,7 +20,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);//('App\Category', 'foreign_key');
     }
-
+    public function cartProducts()
+    {
+        return $this->hasMany(CartProduct::class);//('App\Product');// Product::class);
+    }
     /**
      * Get the productImages for the product.
      */
