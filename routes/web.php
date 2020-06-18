@@ -15,9 +15,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'ProductController@home');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/home', 'HomeController@index')->middleware('verified')->name('home');
 
 Route::resource('contacts', 'ContactController');
 
@@ -39,8 +39,4 @@ Route::get('/redirect-linkedin', 'Auth\LoginController@redirectToProviderLinkedi
 Route::get('/google-auth', 'Auth\LoginController@handleProviderCallback');
 Route::get('/facebook-auth', 'Auth\LoginController@handleProviderCallbackFacebook');
 Route::get('/twitter-auth', 'Auth\LoginController@handleProviderCallbackTwitter');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
