@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', 'ProductController@home');
+
 Auth::routes(['verify' => true]);
 
 Route::get('/home', 'HomeController@index')->middleware('verified')->name('home');
@@ -24,9 +25,9 @@ Route::resource('categories', 'CategoryController');
 
 Route::resource('products', 'ProductController');//->middleware('auth');
 
+Route::resource('user', 'Auth\ProfileController');
+
 Route::post('products/upload', 'ProductController@upload');
-
-
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
 Route::get('/redirect-google', 'Auth\LoginController@redirectToProviderGoogle');
@@ -38,5 +39,4 @@ Route::get('/redirect-linkedin', 'Auth\LoginController@redirectToProviderLinkedi
 Route::get('/google-auth', 'Auth\LoginController@handleProviderCallback');
 Route::get('/facebook-auth', 'Auth\LoginController@handleProviderCallbackFacebook');
 Route::get('/twitter-auth', 'Auth\LoginController@handleProviderCallbackTwitter');
-
 
