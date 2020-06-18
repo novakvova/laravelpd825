@@ -25,6 +25,8 @@ Route::resource('categories', 'CategoryController');
 
 Route::resource('products', 'ProductController');//->middleware('auth');
 
+Route::resource('user', 'Auth\ProfileController');
+
 Route::post('products/upload', 'ProductController@upload');
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
@@ -41,3 +43,4 @@ Route::get('/twitter-auth', 'Auth\LoginController@handleProviderCallbackTwitter'
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
