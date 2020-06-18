@@ -24,7 +24,7 @@
 
                     <div class="form-group">
                         <label for="email">Email:</label>
-                        <textarea class="form-control" name="email" id ="email" rows="10" cols="45">{{$user->email}}</textarea>
+                        <input class="form-control" name="email" id ="email" value="{{$user->email}}"/>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>
