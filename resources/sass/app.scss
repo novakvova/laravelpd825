@@ -4,6 +4,15 @@
 // Variables
 @import 'variables';
 
+//Cropperjs
+@import '~cropperjs/src/index';
+
+//create form
+@import 'create';
+
+//stackPhoto
+@import 'stackPhoto';
+
 @import 'cart';
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';

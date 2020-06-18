@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Product;
+use Cookie;
 use Illuminate\Http\Request;
 use App\Cart;
 use App\CartProduct;
@@ -17,37 +18,39 @@ class CartController extends Controller
     public function index()
     {
         $user=auth()->user()->getAuthIdentifier();
-        $items = CartProduct::all()->only(['product','quantity']);
-
+        $cook = Cookie::get('cook');
+        $array=json_decode($cook,true);
+        $prods_id=$array->where('user_id',$user)->only(['id']);
+        $items=collect([]);
+        foreach ($prods_id as $id)
+        {
+            $prod=Product::find($id);
+            $items->push($prod);
+        }
         return view('carts.index', compact('items'));
     }
 
     public function addCartProduct($id)
     {
         $user=auth()->user()->getAuthIdentifier();
-        $cart=Cart::where('user_id','=',$user);
-        $cartProduct = new CartProduct([
-            'cart_id' => $cart->id,
-            'product_id' => $id,
-            'quantity'=>1
-        ]);
-        $cartProduct->save();
-
-        return redirect('/products')->with('success', 'Продукт успішно додано в кошик!');
+        $cook = Cookie::get('cook');
+        $array=json_decode($cook,true);
+        $array->push(['id' => $id, 'user_id' => $user]);
+        $newCook=json_encode($array);
+        return redirect('/products')->withCookie(cookie()->forever('cook', $newCook));
     }
 
     public function deleteCartProduct($id)
     {
+        //json_encode($languages);
+        //json_decode(,true);
         $user=auth()->user()->getAuthIdentifier();
-        $cart=Cart::where('user_id','=',$user);
-        $cartProduct = new CartProduct([
-            'cart_id' => $cart->id,
-            'product_id' => $id,
-            'quantity'=>1
-        ]);
-        $cartProduct->save();
+        $cook = Cookie::get('cook');
+        $array=json_decode($cook,true);
+        $array->where('id',$id)->delete();
+        $newCook=json_encode($array);
 
-        return redirect('/products')->with('success', 'Продукт успішно додано в кошик!');
+        return redirect('/products')->withCookie(cookie()->forever('cook', $newCook));
     }
 
     /**
