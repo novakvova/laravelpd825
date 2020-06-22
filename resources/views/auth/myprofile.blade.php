@@ -1,9 +1,10 @@
 @extends('base')
 
+
 @section('main')
     <div class="row">
-        <div class="col-sm-8 offset-sm-2">
-            <h1 class="display-3">User profile</h1>
+        <div class="col-sm-8 offset-sm-1">
+            <h1 class="display-3">{{$user->name}}</h1>
             <div>
                 @if ($errors->any())
                     <div class="alert alert-danger">
@@ -14,7 +15,7 @@
                         </ul>
                     </div><br />
                 @endif
-                <form method="post" action="{{ route('user.update', $user->id) }}">
+                <!-- <form method="post" action="{{ route('user.update', $user->id) }}">
                     @method("PATCH")
                     @csrf
                     <div class="form-group">
@@ -28,7 +29,7 @@
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>
@@ -41,15 +42,15 @@
                     <a href="" data-target="#profile" data-toggle="tab" class="nav-link active">Profile</a>
                 </li>
                 <li class="nav-item">
-                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Contact info</a>
+                    <a href="" data-target="#messages" data-toggle="tab" class="nav-link">Change information</a>
                 </li>
-                <li class="nav-item">
-                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link">other info</a>
-                </li>
+                <!-- <li class="nav-item">
+                    <a href="" data-target="#edit" data-toggle="tab" class="nav-link"></a>
+                </li> -->
             </ul>
             <div class="tab-content py-4">
                 <div class="tab-pane active" id="profile">
-                    <h5 class="mb-3">User Profile</h5>
+                    <h5 class="mb-3">{{$user->name}}</h5>
                     <div class="row">
                         <div class="col-md-6">
                             <h6>About</h6>
@@ -237,7 +238,7 @@
             </div>
         </div>
         <div class="col-lg-4 order-lg-1 text-center">
-            <img src="//placehold.it/150" class="mx-auto img-fluid img-circle d-block" alt="avatar">
+            <img src="/images/userPhoto/{{$user->profile->image}}" class="mx-auto img-fluid img-circle d-block" alt="avatar">
             <h6 class="mt-2">Upload a different photo</h6>
             <label class="custom-file">
                 <input type="file" id="file" class="custom-file-input">

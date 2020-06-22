@@ -23,6 +23,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cart::class);
     }
+
+    public function profile()
+    {
+        return $this->belongsTo(UserProfile::class);//('App\Category', 'foreign_key');
+    }
     /**
      * The attributes that should be hidden for arrays.
      *

@@ -3,9 +3,9 @@
     "",
     "\\resources",
     "\\resources\\views",
-    "\\resources\\views\\layouts",
+    "\\resources\\views\\auth",
     "\\routes"
   ],
-  "SelectedNode": "\\resources\\views\\layouts\\app.blade.php",
+  "SelectedNode": "\\resources\\views\\auth\\myprofile.blade.php",
   "PreviewInSolutionExplorer": false
 }
