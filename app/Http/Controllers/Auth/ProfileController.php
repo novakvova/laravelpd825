@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\User;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Laravel\Socialite\Facades\Socialite;
+
+use Illuminate\Http\Request;
+
 class ProfileController extends Controller
 {
     /**
@@ -44,7 +43,7 @@ class ProfileController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
     }
 
     /**
@@ -70,15 +69,13 @@ class ProfileController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function change(Request $request)
     {
-        $user = \App\User::find($id);
+        $user=auth()->user();
         $user->name = $request->get('name');
         $user->email = $request->get('email');
 //        $user->image = $request-> get("image");
