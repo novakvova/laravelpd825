@@ -14,8 +14,7 @@
                         </ul>
                     </div><br />
                 @endif
-                <form method="post" action="{{ route('user.update', $user->id) }}">
-                    @method("PATCH")
+                <form method="post" action="/profile/change">
                     @csrf
                     <div class="form-group">
                         <label for="name">Name:</label>
