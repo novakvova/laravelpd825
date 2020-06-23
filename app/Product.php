@@ -22,7 +22,7 @@ class Product extends Model
     }
     public function cartProducts()
     {
-        return $this->hasMany(CartProduct::class);//('App\Product');// Product::class);
+        return $this->hasMany(OrderProduct::class);//('App\Product');// Product::class);
     }
     /**
      * Get the productImages for the product.
