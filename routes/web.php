@@ -27,7 +27,11 @@ Route::resource('cart', 'CartController')->middleware('auth');
 
 Route::resource('products', 'ProductController');//->middleware('auth');
 
-Route::resource('user', 'Auth\ProfileController');
+Route::resource('profile', 'Auth\ProfileController');
+
+Route::post('profile/change', 'Auth\ProfileController@change');
+
+Route::resource('news', 'NewsController');
 
 Route::post('products/upload', 'ProductController@upload');
 Route::post('cart/addProduct/{id}', 'CartController@addCartProduct');
