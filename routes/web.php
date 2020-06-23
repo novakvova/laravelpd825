@@ -29,6 +29,8 @@ Route::resource('profile', 'Auth\ProfileController');
 
 Route::post('profile/change', 'Auth\ProfileController@change');
 
+Route::resource('news', 'NewsController');
+
 Route::post('products/upload', 'ProductController@upload');
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
