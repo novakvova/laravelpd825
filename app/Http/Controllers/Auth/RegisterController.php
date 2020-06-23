@@ -5,10 +5,11 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\User;
+use Dotenv\Result\Success;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Validation\ValidationException;
 class RegisterController extends Controller
 {
     /*
@@ -45,15 +46,31 @@ class RegisterController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
+
+
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
+        $url = "https://www.google.com/recaptcha/api/siteverify";
+        $fields = [ 'secret'  => "6LcQ3KUZAAAAADNHBARKZ7ntBjXwiX5zcqJLEwky", 'response' => $data["captcha"], ];
+        $fields_string = http_build_query($fields); $ch = curl_init(); curl_setopt($ch,CURLOPT_URL, $url);
+        curl_setopt($ch,CURLOPT_POST, true); curl_setopt($ch,CURLOPT_POSTFIELDS, $fields_string);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER, true);
+        $result = curl_exec($ch);
+        $obj = json_decode($result);
+
+        if($obj->success ==true){
+            return Validator::make($data, [
+                'captcha' => ['required', 'string'],
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ]);
+        }
+        else{
+            throw ValidationException::withMessages(['captcha' => 'This value is incorrect']);
+        }
     }
 
     /**
@@ -64,6 +81,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
