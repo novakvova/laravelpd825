@@ -25,6 +25,8 @@ Route::resource('categories', 'CategoryController');
 
 Route::resource('products', 'ProductController');//->middleware('auth');
 
+Route::resource('news', 'NewsController');
+
 Route::resource('user', 'Auth\ProfileController');
 
 Route::post('products/upload', 'ProductController@upload');
