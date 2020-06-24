@@ -1,6 +1,6 @@
-@extends('base')
+@extends('layouts.app')
 
-@section('main')
+@section('content')
     <div class="row">
         <div class="col-sm-8 offset-sm-2">
             <h1 class="display-3">Змінити товар</h1>
@@ -14,23 +14,37 @@
                         </ul>
                     </div><br/>
                 @endif
-                <form id="update" method="post" action="{{ route('products.update',$product->id) }}">
+                <form id="update" method="post" action="{{ route('products.update', $data["product"]->id) }}">
                     @method("PATCH")
                     @csrf
                     <div class="form-group">
                         <label for="name">Назва продуктy:</label>
-                        <input type="text" class="form-control" value="{{$product->name}}" name="name"/>
+                        <input type="text" class="form-control" value="{{ $data["product"]->name }}" name="name"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Категорія:</label>
+                        <select class="custom-select" name="category" id="category">
+                            <option
+                                value="{{$data["selectedCategory"]->id}}">{{$data["selectedCategory"]->name}}</option>
+                            @foreach($data["categories"] as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="form-group">
                         <label for="price">Ціна продуктy:</label>
-                        <input type="text" class="form-control" value="{{$product->price}}" name="price"/>
+                        <input type="text" class="form-control" value="{{ $data["product"]->price }}" name="price"/>
                     </div>
-
+                    <div class="form-group mt-3">
+                        <label for="count">Кількість:</label>
+                        <input type="number" id="count" class="form-control" name="count"
+                               value="{{ $data["product"]->count }}"/>
+                    </div>
                     @include("view._stack-photo")
                     <div class="form-group">
                         <label for="email">Опис:</label>
-                        <textarea class="form-control" value="{{$product->description}}" name="description"
-                                  id="description" rows="10" cols="45">{!! $product->description!!}</textarea>
+                        <textarea class="form-control" value="{!! $data["product"]->description !!}" name="description"
+                                  id="description" rows="10" cols="45">{!! $data["product"]->description !!}</textarea>
                     </div>
 
                     <button type="submit" class="btn btn-primary">Save</button>
@@ -55,7 +69,7 @@
         }
 
         (function ($) {
-            @foreach ($product->productImages as $image)
+            @foreach ($data["product"]->productImages as $image)
                 $('.images').prepend('<div class="img" data-id="{{$image->id}}" style="background-image: url(' + "{{'/images/840_'.$image->name}}" + ');" rel="' + "{{'/images/840_'.$image->name}}" + '"><span >remove</span></div>');
             @endforeach
         })(jQuery);

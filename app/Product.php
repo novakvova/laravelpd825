@@ -11,6 +11,7 @@ class Product extends Model
         'category_id',
         'price',
         'count',
+        'discount',
         'description'
     ];
     /**
@@ -20,7 +21,10 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class);//('App\Category', 'foreign_key');
     }
-
+    public function cartProducts()
+    {
+        return $this->hasMany(OrderProduct::class);//('App\Product');// Product::class);
+    }
     /**
      * Get the productImages for the product.
      */

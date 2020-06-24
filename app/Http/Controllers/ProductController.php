@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 
 use App\Product;
 use App\ProductImage;
+use App\News;
+use App\Category;
 
 use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Str;
@@ -19,9 +21,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(1);
-        //$product = Product::find(1);
-        //$listImages = $product->productImages;
+        $products = Product::paginate(3);
 
         return view('products.index', compact('products'));
     }
@@ -43,7 +43,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('products.create');
+        $categories = Category::all('id', 'name');
+        return view('products.create', compact('categories'));
     }
 
     /**
@@ -61,9 +62,9 @@ class ProductController extends Controller
 
         $product = new Product([
             'name' => $request->get('name'),
-            'price' => 45,
-            'category_id' => 1,
-            'count'=>0,
+            'price' => $request->get('price'),
+            'category_id' => $request->get('category'),
+            'count' => $request->get('count'),
             'description' => $request->get('description')
         ]);
         $product->save();
@@ -101,7 +102,10 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::find($id);
-        return view('products.edit',  ['product' => $product]);
+        $categories = Category::all('id', 'name');
+        $selectedCategory=$categories->find($product->category_id);
+        $data=array('product'=>$product, 'categories'=>$categories, 'selectedCategory'=>$selectedCategory);
+        return view('products.edit', compact('data'));
     }
 
     /**
@@ -113,9 +117,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $product = \App\Product::find($id);
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'category' => 'required',
+            'price' => 'required'
+        ]);
+
+        $product = Product::find($id);
         $product->name = $request->get('name');
         $product->description = $request->get('description');
+        $product->category_id = $request->get('category');
+        $product->count = $request->get('count');
         $product->price = $request->get('price');
         $product->save();
 

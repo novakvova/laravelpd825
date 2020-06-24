@@ -1,6 +1,6 @@
-@extends('base')
+@extends('layouts.app')
 
-@section('main')
+@section('content')
 
 @include("products.show-style")
 
@@ -25,7 +25,7 @@
                                                 <div class="xzoom-thumbs">
                                                     @foreach ($product->productImages as $image)
                                                         <a href={{'/images/840_'.$image->name}} >
-                                                            <img class="xzoom-gallery" style=" object-fit: contain;" width="80" height="80" src={{'/images/420_'.$image->name}} >
+                                                            <img class="xzoom-gallery" style=" object-fit: contain;" width="105" height="80" src={{'/images/420_'.$image->name}} >
                                                         </a>
                                                     @endforeach
                                                 </div>
@@ -83,9 +83,12 @@
                                                         <input class="cart-plus-minus-box" type="text" name="quantity" value="1">
                                                     </div>
                                                     <div>
-                                                        <a asp-controller="Product" asp-action="AddToCart" asp-route-id="@Model.Product.Id" style="text-decoration: inherit;color:inherit; position: inherit; ">
-                                                            <button class="btn btn-primary">Order</button>
-                                                        </a>
+                                                        <form action="/cart/addProduct/{{$product->id}}"
+                                                              method="post">
+                                                            @csrf
+                                                            <button class="btn btn-success" type="submit"><i
+                                                                    class="fa fa-plus"></i> Add to cart</button>
+                                                        </form>
                                                         <div class="flex-row mt-3" style="display:flex; align-self:center; align-items:center;">
 
 

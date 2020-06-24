@@ -5,7 +5,11 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
+                <div class="card-header">{{ __('Login') }}
+                    <a class="btn btn-light ml-5" href="/redirect-google" style="background-color: white"  >Google   </a>
+                    <a class="btn btn-light" href="/redirect-facebook"    style="background-color: #0a58ac">Facebook </a>
+                    <a class="btn btn-light" href="/redirect-twitter"     style="background-color: #3998ff">Twitter  </a>
+                </div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">

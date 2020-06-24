@@ -13,20 +13,38 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'ProductController@home');
+//Route::get('/', 'ProductController@home');
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@index');//->middleware('verified')->name('home');
 
 Route::resource('contacts', 'ContactController');
 
 Route::resource('categories', 'CategoryController');
 
+Route::resource('cart', 'CartController')->middleware('auth');
+
 Route::resource('products', 'ProductController');//->middleware('auth');
 
+Route::resource('profile', 'Auth\ProfileController');
+
+Route::post('profile/change', 'Auth\ProfileController@change');
+
+Route::resource('news', 'NewsController');
+
 Route::post('products/upload', 'ProductController@upload');
+Route::post('cart/addProduct/{id}', 'CartController@addCartProduct');
+Route::post('cart/deleteProduct/{id}', 'CartController@deleteCartProduct');
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
+Route::get('/redirect-google', 'Auth\LoginController@redirectToProviderGoogle');
+Route::get('/redirect-facebook', 'Auth\LoginController@redirectToProviderFacebook');
+Route::get('/redirect-twitter', 'Auth\LoginController@redirectToProviderTwitter');
+Route::get('/redirect-linkedin', 'Auth\LoginController@redirectToProviderLinkedin');
 
+//Redirect URI`s :
+Route::get('/google-auth', 'Auth\LoginController@handleProviderCallback');
+Route::get('/facebook-auth', 'Auth\LoginController@handleProviderCallbackFacebook');
+Route::get('/twitter-auth', 'Auth\LoginController@handleProviderCallbackTwitter');
 

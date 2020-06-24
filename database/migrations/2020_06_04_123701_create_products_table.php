@@ -25,7 +25,7 @@ class CreateProductsTable extends Migration
             $table->string("name");
             $table->decimal('price')->unsigned();
             $table->integer('count');
-
+            $table->integer('discount')->nullable();
             $table->string('description', 4000);
 
         });

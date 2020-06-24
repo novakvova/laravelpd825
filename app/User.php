@@ -19,6 +19,10 @@ class User extends Authenticatable
         'name', 'email', 'password',
     ];
 
+    public function cart()
+    {
+        return $this->hasOne(Order::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
