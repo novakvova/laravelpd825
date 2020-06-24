@@ -1,8 +1,7 @@
 @extends('base')
 
 @section('main')
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet"
-          integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+
     <div class="d-flex">
         <div style="flex-direction: row;color: white;position: absolute;align-self: center;display: flex;align-items: center;" class="ml-5">
             <img src="/images/logo.svg" style="height: 100px; width: 100px"/>

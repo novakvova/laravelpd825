@@ -34,7 +34,7 @@ class CartController extends Controller
         $items = collect([]);
         foreach ($prods_id as $id) {
             $prod = Product::find($id);
-            
+            $prod->price=$prod->price-($prod->price/100*$prod->discount);
             $items->push($prod);
         }
         return view('cart.index', compact('items'));
