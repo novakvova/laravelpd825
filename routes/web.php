@@ -23,6 +23,8 @@ Route::resource('contacts', 'ContactController');
 
 Route::resource('categories', 'CategoryController');
 
+Route::resource('cart', 'CartController')->middleware('auth');
+
 Route::resource('products', 'ProductController');//->middleware('auth');
 
 Route::resource('profile', 'Auth\ProfileController');
@@ -32,6 +34,8 @@ Route::post('profile/change', 'Auth\ProfileController@change');
 Route::resource('news', 'NewsController');
 
 Route::post('products/upload', 'ProductController@upload');
+Route::post('cart/addProduct/{id}', 'CartController@addCartProduct');
+Route::post('cart/deleteProduct/{id}', 'CartController@deleteCartProduct');
 
 Route::post('products/removeImage/{id}', 'ProductController@removeImage');
 Route::get('/redirect-google', 'Auth\LoginController@redirectToProviderGoogle');

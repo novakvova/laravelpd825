@@ -1,6 +1,7 @@
 @extends('base')
 
 @section('main')
+
     <div class="d-flex">
         <div style="flex-direction: row;color: white;position: absolute;align-self: center;display: flex;align-items: center;" class="ml-5">
             <img src="/images/logo.svg" style="height: 100px; width: 100px"/>

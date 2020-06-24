@@ -21,7 +21,7 @@ class User extends Authenticatable
 
     public function cart()
     {
-        return $this->hasOne(Cart::class);
+        return $this->hasOne(Order::class);
     }
     /**
      * The attributes that should be hidden for arrays.

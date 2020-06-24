@@ -21,6 +21,24 @@
                         <input type="text" class="form-control" name="name"/>
                     </div>
 
+                    <div class="form-group">
+                        <label for="category">Категорія:</label>
+                        <select class="custom-select" name="category">
+                            <option value="">--Оберіть варіант--</option>
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="price">Ціна:</label>
+                        <input type="text" id="price" class="form-control" name="price"/>
+                    </div>
+                    <div class="form-group mt-3">
+                        <label for="count">Кількість:</label>
+                        <input type="number" id="count" class="form-control" name="count"/>
+                    </div>
+
                     @include("view._stack-photo")
 
                     <div class="form-group">
@@ -28,7 +46,7 @@
                         <textarea class="form-control" name="description" id ="description" rows="10" cols="45" ></textarea>
                     </div>
 
-                    <button type="submit" class="btn btn-primary">Add contact</button>
+                    <button type="submit" class="btn btn-primary">Додати продукт</button>
                 </form>
             </div>
         </div>
