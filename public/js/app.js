@@ -53309,6 +53309,10 @@ module.exports = function(module) {
  */
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
+__webpack_require__(/*! ./stackPhoto */ "./resources/js/stackPhoto.js");
+
+__webpack_require__(/*! ./xzoom.min */ "./resources/js/xzoom.min.js");
+
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
 __webpack_require__(/*! ./stackPhoto */ "./resources/js/stackPhoto.js");
@@ -53347,6 +53351,7 @@ var app = new Vue({
 /***/ (function(module, exports, __webpack_require__) {
 
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
+window.Cropper = __webpack_require__(/*! cropperjs */ "./node_modules/cropperjs/dist/cropper.js");
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
  * for JavaScript based Bootstrap features such as modals and tabs. This

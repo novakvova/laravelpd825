@@ -21,13 +21,9 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::where('discount', '>', 0)->paginate(3);
-        //$news=News::orderBy('created_at');
-        $news=News::all()->sortByDesc('created_at')->take(4);
-        //$product = Product::find(1);
-        //$listImages = $product->productImages;
+        $products = Product::paginate(3);
 
-        return view('products.index', compact('products','news'));
+        return view('products.index', compact('products'));
     }
 
 

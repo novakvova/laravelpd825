@@ -1,6 +1,6 @@
-@extends('base')
+@extends('layouts.app')
 
-@section('main')
+@section('content')
 
     <div class="d-flex container mt-5 flex-column">
         <div class="d-flex justify-content-center">
