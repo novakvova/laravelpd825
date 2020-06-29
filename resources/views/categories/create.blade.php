@@ -25,8 +25,6 @@
                         <img class="chose-image" src="{{ asset('images/200_default.png') }}"
                              id="chooseImage" alt="Обрати фото">
                         <input type="hidden" name="base64Image" id="base64Image">
-
-
                     </div>
 
                     <div class="form-group">

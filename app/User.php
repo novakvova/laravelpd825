@@ -23,6 +23,11 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cart::class);
     }
+
+    public function profile()
+    {
+        return $this->hasOne(UserProfile::class);
+    }
     /**
      * The attributes that should be hidden for arrays.
      *
